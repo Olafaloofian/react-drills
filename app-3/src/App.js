@@ -3,18 +3,39 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      array: ['camaro', 'mustang', 'corvette', 'challenger', 'el camino', 'solstice', 'g6'],
+      userInput: ""
+    }
+  }
+
+  makeChange(val) {
+    this.setState ({
+      userInput: val
+    })
+  }
+
   render() {
+    console.log(this.state.userInput)
+    const filteredArray = this.state.array.filter(e => {
+      return e.includes(this.state.userInput);
+    }).map( (e, i) => {
+      return (
+        <h2 key = { i }>{ e }</h2>
+      )
+    }
+  )
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+          <h2>Cool Cars List</h2>
+          <input onChange = {e => this.makeChange(e.target.value)} />
+          {filteredArray}
       </div>
     );
+    console.log(this.state.userInput)
   }
 }
 
